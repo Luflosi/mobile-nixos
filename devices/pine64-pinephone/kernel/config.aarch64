@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.4.0 Kernel Configuration
+# Linux/arm64 6.4.7 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-unknown-linux-gnu-gcc (GCC) 12.2.0"
 CONFIG_CC_IS_GCC=y
@@ -324,6 +324,7 @@ CONFIG_ARCH_SUNXI=y
 #
 # ARM errata workarounds via the alternatives framework
 #
+CONFIG_AMPERE_ERRATUM_AC03_CPU_38=y
 CONFIG_ARM64_WORKAROUND_CLEAN_CACHE=y
 CONFIG_ARM64_ERRATUM_826319=y
 CONFIG_ARM64_ERRATUM_827319=y
@@ -1006,6 +1007,7 @@ CONFIG_SECRETMEM=y
 # CONFIG_LRU_GEN is not set
 CONFIG_ARCH_SUPPORTS_PER_VMA_LOCK=y
 CONFIG_PER_VMA_LOCK=y
+CONFIG_LOCK_MM_AND_FIND_VMA=y
 
 #
 # Data Access Monitoring
@@ -4549,6 +4551,7 @@ CONFIG_DRM_PANEL=y
 # CONFIG_DRM_PANEL_AUO_A030JTN01 is not set
 # CONFIG_DRM_PANEL_BOE_BF060Y8M_AJ0 is not set
 # CONFIG_DRM_PANEL_BOE_HIMAX8279D is not set
+# CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A is not set
 # CONFIG_DRM_PANEL_BOE_TV101WUM_NL6 is not set
 # CONFIG_DRM_PANEL_DSI_CM is not set
 # CONFIG_DRM_PANEL_LVDS is not set
