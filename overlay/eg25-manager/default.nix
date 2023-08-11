@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitLab
+, fetchurl
 , gnugrep
 , meson
 , ninja
@@ -42,10 +43,19 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs = [
+  buildInputs = let
+    # Tracking issue for compatibility with libgpiod 2.0: https://gitlab.com/mobian1/eg25-manager/-/issues/45
+    libgpiod1 = libgpiod.overrideAttrs (old: rec {
+       version = "1.6.4";
+       src = fetchurl {
+         url = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/libgpiod-${version}.tar.gz";
+         sha256 = "sha256-gp1KwmjfB4U2CdZ8/H9HbpqnNssqaKYwvpno+tGXvgo=";
+       };
+     });
+  in [
     curl
     glib
-    libgpiod
+    libgpiod1
     libgudev
     libusb1
     modemmanager
