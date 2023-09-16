@@ -62,6 +62,10 @@
 # system build.
 , systemBuild-structuredConfig ? {}
 
+# When set to true, the kernel build will be failed when the kernel
+# config differs from expected.
+, __mobile-nixos-useStrictKernelConfig ? false
+
 # Only the logo file has to be overridable; the enable/disable flags are part
 # of the builder signature such that if enabling the logo replacement causes
 # issues, it can be disabled for a particular kernel.
@@ -206,10 +210,10 @@ stdenv.mkDerivation (inputArgs // {
 
   # Allows disabling the kernel config normalization.
   # Set to false when normalizing the kernel config.
-  forceNormalizedConfig = true;
+  forceNormalizedConfig = __mobile-nixos-useStrictKernelConfig;
 
   # Allows updating the kernel config to conform to the structured config.
-  updateConfigFromStructuredConfig = false;
+  updateConfigFromStructuredConfig = !__mobile-nixos-useStrictKernelConfig;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ perl bc nettools openssl rsync gmp libmpc mpfr ]
@@ -334,7 +338,7 @@ stdenv.mkDerivation (inputArgs // {
       echo "ERROR: $buildRoot/.config : file exists."
       echo "       The kernel source tree must not contain a .config file."
       echo "       Remove the .config file and provide it as an input for the derivation."
-      exit 1
+      exit 4
     fi
 
     # Catting so we can write to the config file
@@ -388,8 +392,7 @@ stdenv.mkDerivation (inputArgs // {
               "CONFIG_GCC_PLUGIN_.*"
               "CONFIG_GCC_VERSION"
               "CONFIG_HAVE_.*"
-              "CONFIG_INIT_STACK_ALL_PATTERN"
-              "CONFIG_INIT_STACK_ALL_ZERO"
+              "CONFIG_INIT_STACK.*"
               "CONFIG_KCOV"
               "CONFIG_KCSAN"
               "CONFIG_LD_VERSION"
@@ -408,7 +411,7 @@ stdenv.mkDerivation (inputArgs // {
           echo '       Use the `bin/kernel-normalize-config` tool to refresh the configuration.'
           echo "       Don't forget to make sure the changed configuration options are good!"
           printf "\n"
-          exit 1
+          exit 3
         fi
         rm -v $buildRoot/.tmp.config{.old,}
       fi
@@ -544,6 +547,20 @@ stdenv.mkDerivation (inputArgs // {
 
   passthru = let
     baseVersion = lib.head (lib.splitString "-rc" version);
+    configUpdater = attrs: kernelDerivation.overrideAttrs({ ... }: ({
+      # This is because we'll use the new output!
+      # So skip the checks.
+      forceNormalizedConfig = false;
+      # Ensure we get new config elements from structured config.
+      updateConfigFromStructuredConfig = true;
+      # Copy the produced config
+      installPhase = ''
+        cp .config $out
+      '';
+      # Skip other phases entirely
+      buildPhase = ":";
+      fixupPhase = ":";
+    } // attrs));
   in {
     # Used by consumers of the kernel derivation to configure the build
     # appropriately for different quirks.
@@ -556,15 +573,14 @@ stdenv.mkDerivation (inputArgs // {
     # Used by consumers to refer to the kernel build product.
     file = kernelFile;
 
-    # Derivation with the as-built normalized kernel config
-    normalizedConfig = kernelDerivation.overrideAttrs({ ... }: {
-      forceNormalizedConfig = false;
-      updateConfigFromStructuredConfig = true;
-      buildPhase = "echo Skipping build phase...";
-      installPhase = ''
-        cp .config $out
-      '';
-    });
+    # Used to update the config.
+    normalizedConfig = configUpdater {};
+
+    # Used to fail CI when configs don't pass anymore.
+    validatedConfig  = configUpdater {
+      updateConfigFromStructuredConfig = false;
+      forceNormalizedConfig = true;
+    };
 
     # Patching over this configuration to expose menuconfig.
     menuconfig = kernelDerivation.overrideAttrs({nativeBuildInputs ? [] , ...}: {

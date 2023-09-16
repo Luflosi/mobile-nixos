@@ -9,9 +9,11 @@
   ./bootloader.nix
   ./cross-workarounds.nix
   ./devices-metadata.nix
+  ./disk-image.nix
   ./documentation.nix
   ./eg25-manager.nix
   ./hardware-eink.nix
+  ./generated-disk-images.nix
   ./generated-filesystems.nix
   ./hardware-allwinner.nix
   ./hardware-exynos.nix

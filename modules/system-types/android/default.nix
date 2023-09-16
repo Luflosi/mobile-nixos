@@ -24,7 +24,7 @@ let
 
   android-recovery = recovery.mobile.outputs.android.android-bootimg;
 
-  inherit (config.mobile.outputs.generatedFilesystems) rootfs;
+  inherit (config.mobile.generatedFilesystems) rootfs;
 
   # Note:
   # The flash scripts, by design, are not using nix-provided paths for
@@ -33,7 +33,7 @@ let
   # output should be usable even on systems without Nix.
   android-fastboot-images = pkgs.runCommand "android-fastboot-images-${device.name}" {} ''
     mkdir -p $out
-    cp -v ${rootfs}/${rootfs.filename} $out/system.img
+    cp -v ${rootfs.imagePath} $out/system.img
     cp -v ${android-bootimg} $out/boot.img
     ${optionalString has_recovery_partition ''
     cp -v ${android-recovery} $out/recovery.img
@@ -60,6 +60,11 @@ let
         --BOOT "$dir"/boot.img ${optionalString has_recovery_partition ''\
         --RECOVERY "$dir"/recovery.img
       ''}
+    ''
+    else if flashingMethod == "lk2nd" then ''
+      echo "There is no automated script for flashing with lk2nd yet."
+      echo "Please refer to the installation instructions for your device."
+      exit 1
     ''
     else builtins.throw "No flashing method for ${flashingMethod}"})
     echo ""
@@ -105,6 +110,7 @@ in
       flashingMethod = lib.mkOption {
         type = types.enum [
           "fastboot" # Default, using `fastboot`
+          "lk2nd"    # Some Qualcomm mainline devices, using fastboot and lk2nd
           "odin"     # Mainly Samsung, using `heimdall`
         ];
         description = lib.mdDoc "Configures which flashing method is used by the device.";
