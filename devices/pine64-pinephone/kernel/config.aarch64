@@ -1879,7 +1879,7 @@ CONFIG_SRAM=y
 # CONFIG_OPEN_DICE is not set
 # CONFIG_PPKB_POWER_MANAGER is not set
 # CONFIG_VCPU_STALL_DETECTOR is not set
-CONFIG_MODEM_POWER=y
+# CONFIG_MODEM_POWER is not set
 # CONFIG_C2PORT is not set
 
 #
@@ -6069,7 +6069,7 @@ CONFIG_HID_SENSOR_GYRO_3D=y
 # CONFIG_DHT11 is not set
 # CONFIG_HDC100X is not set
 # CONFIG_HDC2010 is not set
-# CONFIG_HID_SENSOR_HUMIDITY is not set
+CONFIG_HID_SENSOR_HUMIDITY=y
 # CONFIG_HTS221 is not set
 # CONFIG_HTU21 is not set
 # CONFIG_SI7005 is not set
@@ -6201,7 +6201,7 @@ CONFIG_HID_SENSOR_DEVICE_ROTATION=y
 #
 # Linear and angular position sensors
 #
-# CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE is not set
+CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE=y
 # end of Linear and angular position sensors
 
 #
