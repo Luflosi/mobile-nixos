@@ -323,7 +323,8 @@ EOF
 fileSystems = {
   "/" = {
     device = "/dev/disk/by-uuid/#{@configuration[:filesystems][:rootfs][:uuid]}";
-    fsType = "ext4";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "ssd_spread" "discard=async" "noatime" "autodefrag" "commit=300" ];
   };
 };
 EOF

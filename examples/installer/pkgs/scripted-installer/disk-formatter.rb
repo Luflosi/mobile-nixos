@@ -29,8 +29,8 @@ end
 module Helpers
   class Ext4 < Base
     def self.format(path, uuid:, label:)
-      cmd = ["mkfs.ext4"]
-      cmd << "-F"
+      cmd = ["mkfs.btrfs"]
+      cmd << "--force"
       cmd << path
       cmd.concat(["-L", label])
       cmd.concat(["-U", uuid])
@@ -44,6 +44,7 @@ module Helpers
       cmd << "luksFormat"
       cmd << path
       cmd.concat(["--uuid", uuid.shellescape])
+      cmd.concat(["--iter-time", "5000"])
       cmd.concat(["--key-file", "-"])
       puts " $ #{prettify_command(*cmd)}"
       # FIXME: use proper input redirection, this leaks the passphrase in process list
@@ -61,6 +62,8 @@ module Helpers
       cmd << "luksOpen"
       cmd << path
       cmd << mapper
+      cmd.concat(["--persistent"])
+      cmd.concat(["--allow-discards"])
       cmd.concat(["--key-file", "-"])
       puts " $ #{prettify_command(*cmd)}"
       # FIXME: use proper input redirection, this leaks the passphrase in process list

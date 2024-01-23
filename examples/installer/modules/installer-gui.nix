@@ -18,6 +18,7 @@ let
         util-linux      # wipefs, sfdisk
         cryptsetup      # LUKS
         e2fsprogs       # mkfs.ext4
+        btrfs-progs     # mkfs.btrfs
         mkpasswd        # for the user's password
       ])}:$PATH";
     };

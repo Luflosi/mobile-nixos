@@ -7,6 +7,7 @@
     tmux
     cryptsetup
     e2fsprogs
+    btrfs-progs
     mobile-installer-script
   ];
 
