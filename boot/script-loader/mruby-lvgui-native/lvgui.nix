@@ -95,13 +95,12 @@ let
 in
   stdenv.mkDerivation {
     pname = "lvgui";
-    version = "2024-03-27";
+    version = "2024-03-29";
 
     src = fetchFromGitHub {
       repo = "lvgui";
       owner = "mobile-nixos";
-      # XXX: merge https://github.com/mobile-nixos/lvgui/pull/21
-      rev = "f5ac9bd5ed652d9f4f45a9217c075b1d6370e975";
+      rev = "8768bab377a7ccab0b25b96d204af670820f8c76";
       hash = "sha256-lDmUppndyDGY1EJT7FC6Fdb3AT2M6D75FnXw4bPNrD0=";
     };
 
