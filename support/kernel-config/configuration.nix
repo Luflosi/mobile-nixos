@@ -236,7 +236,7 @@ in
 
     (helpers: with helpers; mkDefaultIze {
       SWAP = yes;
-      ZSWAP = no;
+      ZSWAP = whenAtLeast "6.1" yes;
       ZSMALLOC = yes;
       ZRAM = yes;
       ZRAM_DEF_COMP_LZ4 = (whenAtLeast "5.11" yes);
