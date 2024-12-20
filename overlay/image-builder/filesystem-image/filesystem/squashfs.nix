@@ -24,8 +24,8 @@ in
         "zstd"
       ];
       default = "xz";
-      description = lib.mdDoc ''
-        Volume ID of the filesystem.
+      description = ''
+        Compression type for the filesystem
       '';
     };
     compressionParams = mkOption {
