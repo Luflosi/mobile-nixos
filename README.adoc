@@ -1,5 +1,5 @@
 ++++
-<div align="center"><a href="https://mobile.nixos.org/"><img src="artwork/logo/logo.svg" alt="Mobile NixOS" title="Mobile NixOS" width="500" height="130" /></a></div>
+<div align="center"><a href="https://mobile-nixos.github.io/"><img src="artwork/logo/logo.svg" alt="Mobile NixOS" title="Mobile NixOS" width="500" height="130" /></a></div>
 ++++
 
 *Mobile NixOS* is a superset on top of link:https://nixos.org/nixos/[NixOS Linux],
@@ -18,16 +18,10 @@ endif::[]
 ifdef::env-github[]
 ⚠️ **Note**: Mobile NixOS is only expected to build succesfully against the **unstable** branch of Nixpkgs.
 endif::[]
-ifndef::env-github[]
-[NOTE]
-====
-Mobile NixOS is only expected to build succesfully against the **unstable** branch of Nixpkgs.
-====
-endif::[]
 
 == Documentation
 
- * link:https://mobile.nixos.org/[The Mobile NixOS website] hosts the rendered link:https://github.com/NixOS/mobile-nixos/tree/master/doc[doc folder] for Mobile NixOS documentation.
+ * link:https://mobile-nixos.github.io/[The Mobile NixOS website] hosts the rendered link:https://github.com/mobile-nixos/mobile-nixos/tree/development/doc[doc folder] for Mobile NixOS documentation.
 
 As Mobile NixOS is a superset of NixOS Linux, the following documentation applies:
 
@@ -37,10 +31,7 @@ As Mobile NixOS is a superset of NixOS Linux, the following documentation applie
 
 == Community
 
-Mobile NixOS development and questions is currently hosted on the
-**NixOS on ARM** channel.
-
- * link:https://matrix.to/#/#nixos-on-arm:nixos.org?via=nixos.org&via=matrix.org[NixOS on ARM on the NixOS Matrix Space]
+Mobile NixOS development and questions is done within the link:https://github.com/mobile-nixos/mobile-nixos[Mobile NixOS GitHub repository].
 
 The following community resources are also available, for NixOS questions.
 
@@ -53,11 +44,6 @@ The following community resources are also available, for NixOS questions.
  * link:https://github.com/NixOS/nixpkgs[Nixpkgs] - the Nix packages collection
 
 == Continuous Integration
-
-Mobile NixOS is continuously built on the link:https://hydra.nixos.org/[organization's Hydra instance].
-
- * link:https://hydra.nixos.org/jobset/mobile-nixos/unstable[Against the `nixos-unstable` branch of NixOS]
- ** link:https://hydra.nixos.org/job/mobile-nixos/unstable/tested[`tested` job]
 
 There is no published artifacts for the time being, but the documentation
 should point you towards resources that you can use to get started quicker when
@@ -81,7 +67,7 @@ improvement; it is not in our nature to scold new contributors.
 
 == License
 
-Mobile NixOS is licensed under the link:https://github.com/NixOS/mobile-nixos/blob/master/LICENSE[MIT License].
+Mobile NixOS is licensed under the link:https://github.com/mobile-nixos/mobile-nixos/blob/development/LICENSE[MIT License].
 
 [NOTE]
 ====
@@ -91,3 +77,19 @@ but only to the files in this repository (expressions, scripts, modules, etc.).
 Patches and derivative work are covered by the licenses of their respective
 packages.
 ====
+
+[#homepage-acknowledgements]
+--
+[discrete]
+== Acknowledgements
+
+This project was funded in part through the NGI PET Fund.
+link:https://nlnet.nl/PET/[Read more about it on NLnet's website].
+
+ifdef::env-github[]
+image::doc/images/NGI0_tag_black_mono.svg[NGI0,link=https://nlnet.nl/NGI0/]
+endif::[]
+ifndef::env-github[]
+image::images/NGI0_tag_black_mono.svg[NGI0,link=https://nlnet.nl/NGI0/]
+endif::[]
+--
