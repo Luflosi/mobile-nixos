@@ -25,5 +25,7 @@ in
     services.xserver.desktopManager.phosh = {
       user = defaultUserName;
     };
+
+    mobile.rootfs.useSquashfs = true;
   };
 }
