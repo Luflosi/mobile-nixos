@@ -15,6 +15,7 @@ in
     msm-fb-refresher = callPackage ./msm-fb-refresher { };
     ply-image = callPackage ./ply-image { };
     qc-image-unpacker = callPackage ./qc-image-unpacker { };
+    seatd = callPackage ./seatd { prev_seatd = super.seatd; };
     ufdt-apply-overlay = callPackage ./ufdt-apply-overlay {};
 
     # Extra "libs"
