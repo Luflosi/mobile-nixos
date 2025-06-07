@@ -17,13 +17,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "libhybris";
-  version = "2019-12-02";
+  version = "0-unstable-2024-11-07";
 
   src = fetchFromGitHub {
     owner = "libhybris";
     repo = "libhybris";
-    rev = "d27c1a85703db8dea4539ceb4d869792fd78ee37";
-    sha256 = "014wrpzd1w2bbza5jsy51qhhn9lvffz5h8l6mkwvkkn98i3h9yzn";
+    rev = "9f61f26c44d9a3bf62efb67d4c32a7a0c89c21ca";
+    hash = "";
   };
 
   patches = [
