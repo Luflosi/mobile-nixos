@@ -15,5 +15,5 @@ let
   ;
 in
 {
-  mobile.adbd.enable = lib.mkDefault enableADB;
+  mobile.adbd.enable = false;
 }
