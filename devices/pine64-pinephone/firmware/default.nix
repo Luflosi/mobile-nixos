@@ -6,7 +6,7 @@
 # The minimum set of firmware files required for the device.
 runCommand "pine64-pinephone-firmware" {
   src = fetchgit {
-    url = "https://megous.com/git/linux-firmware";
+    url = "https://xff.cz/git/linux-firmware";
     rev = "0510074346983ad33b3d52ce8f5d6a8f89a564a8";
     hash = "sha256-qZVkGv4PCqKSYz92yy0+9oZY7dPW24rmj5obeaVXt0Y=";
   };
