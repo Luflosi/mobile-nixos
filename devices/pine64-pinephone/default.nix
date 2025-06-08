@@ -4,6 +4,7 @@
   imports = [
     ./modem.nix
     ./sound.nix
+    ./kernel/config.nix
   ];
 
   nixpkgs.overlays = [
