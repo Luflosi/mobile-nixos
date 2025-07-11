@@ -101,7 +101,7 @@ let
       buildPackages.ubootTools
     ];
   } ''
-    mkimage -C none -A ${ubootPlatforms.${pkgs.stdenv.targetPlatform.system}} -T script -d ${bootcmd} $out
+    mkimage -C none -A ${ubootPlatforms.${pkgs.stdenv.hostPlatform.system}} -T script -d ${bootcmd} $out
   '';
 in
 {
