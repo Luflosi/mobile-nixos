@@ -484,7 +484,9 @@ stdenv.mkDerivation (inputArgs // {
     # Helpful in cases where the kernel isn't built with /proc/config.gz
     cp -v "$buildRoot/.config" "$out/build.config"
 
-    unlink "$out/lib/modules/${modDirVersion}/build"
+    # Clean up potential broken symlinks
+    rm -vf "$out/lib/modules/${modDirVersion}/build"
+    rm -vf "$out/lib/modules/${modDirVersion}/source"
 
   '' + optionalString hasDTB ''
     echo ":: Installing DTBs"
