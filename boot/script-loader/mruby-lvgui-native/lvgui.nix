@@ -20,13 +20,13 @@ let
 in
   stdenv.mkDerivation {
     pname = "lvgui";
-    version = "2025-08-02";
+    version = "2025-08-03";
 
     src = fetchFromGitHub {
       repo = "lvgui";
       owner = "mobile-nixos";
-      rev = "3c8db713ab89707dc490929e94f20c143ed5b7fc";
-      hash = "sha256-0j2cRLfcGPUwPmSO2EQQDN4K9TnRypu+SM6Yy02yjdw=";
+      rev = "4d1c176c2cfdf11a1e9624ae702c1dafd694c33c";
+      hash = "sha256-6gHTdu8TMn7JQ7dSdCPi2/VXeq+p8iHnmojm+cHbew8=";
     };
 
     # Document `LVGL_ENV_SIMULATOR` in the built headers.
