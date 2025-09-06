@@ -16,4 +16,18 @@ in
       boot-splash = callPackage ../splash {};
     };
   };
+
+  # Slimmed-down for stage-1 usage.
+  libinput = callPackage ./libinput {
+    inherit (super)
+      libinput
+    ;
+  };
+
+  # Slimmed-down for stage-1 usage.
+  libxkbcommon = callPackage ./libxkbcommon {
+    inherit (super)
+      libxkbcommon
+    ;
+  };
 }
