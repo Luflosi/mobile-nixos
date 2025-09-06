@@ -97,12 +97,12 @@ in
         stdenv = with final; overrideCC stdenv buildPackages.clang;
       };
 
-      stage-1 = {
-        script-loader = callPackage ../boot/script-loader {};
-        boot-recovery-menu = callPackage ../boot/recovery-menu {};
-        boot-error = callPackage ../boot/error {};
-        boot-splash = callPackage ../boot/splash {};
-      };
+      # We need to "globally" locally override some packages for stage-1.
+      stage-1 = (final.appendOverlays [(import ../boot/overlay)]).mobile-nixos.stage-1;
+
+      # Originally part of `stage-1`.
+      # In stage-1 it is now overridden with the cut-down libinput and libxkbcommon.
+      script-loader = callPackage ../boot/script-loader {};
 
       # Flashable zip binaries are always static.
       android-flashable-zip-binaries = final.pkgsStatic.callPackage ./mobile-nixos/android-flashable-zip-binaries {};
