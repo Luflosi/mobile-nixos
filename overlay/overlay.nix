@@ -1,7 +1,7 @@
-self: super:
+final: super:
 
 let
-  callPackage = self.callPackage;
+  callPackage = final.callPackage;
 in
   {
     # Misc. tools.
@@ -20,12 +20,12 @@ in
 
     # Extra "libs"
     mkExtraUtils = import ./lib/extra-utils.nix {
-      inherit (self)
+      inherit (final)
         runCommandCC
         glibc
         buildPackages
       ;
-      inherit (self.buildPackages)
+      inherit (final.buildPackages)
         nukeReferences
       ;
     };
@@ -36,7 +36,7 @@ in
     #
 
     android-partition-tools = callPackage ./android-partition-tools {
-      stdenv = with self; overrideCC stdenv buildPackages.clang;
+      stdenv = with final; overrideCC stdenv buildPackages.clang;
     };
     make_ext4fs = callPackage ./make_ext4fs {};
     hardshutdown = callPackage ./hardshutdown {};
@@ -66,14 +66,14 @@ in
       if super.xorg ? overrideScope'
       then super.xorg.overrideScope'
       else super.xorg.overrideScope
-    ) (self: super: {
+    ) (final: super: {
       xf86videofbdev = super.xf86videofbdev.overrideAttrs({patches ? [], ...}: {
         patches = patches ++ [
           ./xserver/0001-HACK-fbdev-don-t-bail-on-mode-initialization-fail.patch
         ];
       });
     }) # See all-packages.nix for more about this messy composition :/
-    // { inherit (self) xlibsWrapper; };
+    // { inherit (final) xlibsWrapper; };
 
     #
     # Fixes to upstream
@@ -86,7 +86,7 @@ in
       # https://github.com/NixOS/nixpkgs/pull/69039
       postPatch = ''
         substituteInPlace Makefile \
-          --replace "ar qc" '${self.stdenv.cc.bintools.targetPrefix}ar qc'
+          --replace "ar qc" '${final.stdenv.cc.bintools.targetPrefix}ar qc'
       '';
     });
 
@@ -95,25 +95,25 @@ in
     mobile-nixos = {
       kernel-builder = callPackage ./mobile-nixos/kernel/builder.nix {};
       kernel-builder-clang = callPackage ./mobile-nixos/kernel/builder.nix {
-        stdenv = with self; overrideCC stdenv buildPackages.clang;
+        stdenv = with final; overrideCC stdenv buildPackages.clang;
       };
 
-      stage-1 = {
-        script-loader = callPackage ../boot/script-loader {};
-        boot-recovery-menu = callPackage ../boot/recovery-menu {};
-        boot-error = callPackage ../boot/error {};
-        boot-splash = callPackage ../boot/splash {};
-      };
+      # We need to "globally" locally override some packages for stage-1.
+      stage-1 = (final.appendOverlays [(import ../boot/overlay)]).mobile-nixos.stage-1;
+
+      # Originally part of `stage-1`.
+      # In stage-1 it is now overridden with the cut-down libinput and libxkbcommon.
+      script-loader = callPackage ../boot/script-loader {};
 
       # Flashable zip binaries are always static.
-      android-flashable-zip-binaries = self.pkgsStatic.callPackage ./mobile-nixos/android-flashable-zip-binaries {};
+      android-flashable-zip-binaries = final.pkgsStatic.callPackage ./mobile-nixos/android-flashable-zip-binaries {};
 
       autoport = callPackage ./mobile-nixos/autoport {};
 
       boot-control = callPackage ./mobile-nixos/boot-control {};
 
-      boot-recovery-menu-simulator = self.mobile-nixos.stage-1.boot-recovery-menu.simulator;
-      boot-splash-simulator = self.mobile-nixos.stage-1.boot-splash.simulator;
+      boot-recovery-menu-simulator = final.mobile-nixos.stage-1.boot-recovery-menu.simulator;
+      boot-splash-simulator = final.mobile-nixos.stage-1.boot-splash.simulator;
 
       fdt-forward = callPackage ./mobile-nixos/fdt-forward {};
 
@@ -126,7 +126,7 @@ in
       mkLVGUIApp = callPackage ./mobile-nixos/lvgui {};
 
       cross-canary-test = callPackage ./mobile-nixos/cross-canary/test.nix {};
-      cross-canary-test-static = self.pkgsStatic.callPackage ./mobile-nixos/cross-canary/test.nix {};
+      cross-canary-test-static = final.pkgsStatic.callPackage ./mobile-nixos/cross-canary/test.nix {};
 
       pine64-alsa-ucm = callPackage ./mobile-nixos/pine64-alsa-ucm {};
     };
