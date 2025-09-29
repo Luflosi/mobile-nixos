@@ -4,7 +4,7 @@ let
   inherit (lib.strings) makeBinPath;
 
   app = pkgs.callPackage ../app {};
-  installer-gui = pkgs.mobile-nixos.stage-1.script-loader.wrap {
+  installer-gui = pkgs.mobile-nixos.script-loader.wrap {
     name = "installer-gui";
     applet = "${app}/libexec/app.mrb";
     env = {

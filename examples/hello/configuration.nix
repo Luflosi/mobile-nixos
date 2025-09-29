@@ -4,7 +4,7 @@ let
   inherit (lib.strings) makeBinPath;
 
   app = pkgs.callPackage ./app {};
-  hello-gui = pkgs.mobile-nixos.stage-1.script-loader.wrap {
+  hello-gui = pkgs.mobile-nixos.script-loader.wrap {
     name = "hello-gui";
     applet = "${app}/libexec/app.mrb";
     env = {
