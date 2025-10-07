@@ -82,13 +82,7 @@ in
     # All that follows will have to be cleaned and then upstreamed.
     #
 
-    vboot_reference = super.vboot_reference.overrideAttrs(attrs: {
-      # https://github.com/NixOS/nixpkgs/pull/69039
-      postPatch = ''
-        substituteInPlace Makefile \
-          --replace "ar qc" '${final.stdenv.cc.bintools.targetPrefix}ar qc'
-      '';
-    });
+    # No such fixes as of now, this comment is merely a placeholder to keep the general structure.
 
     # Things specific to mobile-nixos.
     # Not necessarily internals, but they probably won't go into <nixpkgs>.
