@@ -169,19 +169,18 @@ in
           (
           cd mobile-nixos/storage
           cp -v ${kernel_file} kernel
-          cp -vr ${kernel}/dtbs dtbs
           )
           (
           cd mobile-nixos/boot
           cp -v ${stage-0.mobile.outputs.initrd} stage-1
           ln --symbolic --verbose ../storage/kernel kernel
-          ln --symbolic --verbose ../storage/dtbs dtbs
+          cp -vr ${kernel}/dtbs dtbs
           )
           (
           cd mobile-nixos/recovery
           cp -v ${recovery.mobile.outputs.initrd} stage-1
           ln --symbolic --verbose ../storage/kernel kernel
-          ln --symbolic --verbose ../storage/dtbs dtbs
+          cp -vr ${kernel}/dtbs dtbs
           )
           cp -v ${bootscr} ./boot.scr
         '';
