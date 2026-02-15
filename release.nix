@@ -106,10 +106,7 @@ let
     in
     eval: let overlay = (lib.genAttrs overlayAttrNames (name: eval.pkgs.${name})); in
     overlay // {
-      # We only "monkey patch" over top of the main nixos one.
-      xorg = {
-        xf86videofbdev = eval.pkgs.xorg.xf86videofbdev;
-      };
+      xf86-video-fbdev = eval.pkgs.xf86-video-fbdev;
 
       # lib-like attributes...
       # How should we handle these?
