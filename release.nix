@@ -46,7 +46,12 @@ let
       if args' ? system
       then builtins.throw "Providing the `system` argument when providing your own `pkgs` is forbidden. You should instead pass the desired `system` argument to your `pkgs` instance."
       else (args'.pkgs)
-    else (import ./pkgs.nix { inherit system; })
+    else (import ./pkgs.nix {
+      inherit system;
+      config = {
+        allowAliases = false;
+      };
+    })
   ;
 
   mobileReleaseTools = (import ./lib/release-tools.nix { inherit pkgs; });
