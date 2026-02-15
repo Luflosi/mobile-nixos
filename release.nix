@@ -77,7 +77,6 @@ let
   inherit (mobileReleaseTools.withPkgs pkgs)
     evalFor
     evalWithConfiguration
-    knownSystems
     specialConfig
   ;
 
@@ -152,7 +151,7 @@ let
   device = lib.genAttrs devices (device:
     lib.genAttrs systems (system:
       (evalWithConfiguration {
-        nixpkgs.localSystem = knownSystems.${system};
+        nixpkgs.buildPlatform = system;
       } device).config.mobile.outputs.default
     )
   );
@@ -162,7 +161,7 @@ let
   kernel = lib.genAttrs devices (device:
     lib.genAttrs systems (system:
       (evalWithConfiguration {
-        nixpkgs.localSystem = knownSystems.${system};
+        nixpkgs.buildPlatform = system;
       } device).config.mobile.boot.stage-1.kernel.package
     )
   );
@@ -194,14 +193,14 @@ let
 
   evalInstaller =
     { device
-    , localSystem
+    , buildPlatform
     }:
     let
       eval = evalWithConfiguration {
         imports = [
           ./examples/installer/configuration.nix
         ];
-        nixpkgs.localSystem = knownSystems.${localSystem};
+        nixpkgs.buildPlatform = buildPlatform;
       } device;
     in
       eval // { inherit (eval.config.mobile) outputs; }
@@ -240,10 +239,10 @@ rec {
   };
 
   installer = {
-    lenovo-krane = (evalInstaller { device = "lenovo-krane"; localSystem = "aarch64-linux"; }).outputs.default;
-    lenovo-wormdingler = (evalInstaller { device = "lenovo-wormdingler"; localSystem = "aarch64-linux"; }).outputs.default;
-    pine64-pinephone = (evalInstaller { device = "pine64-pinephone"; localSystem = "aarch64-linux"; }).outputs.default;
-    pine64-pinephonepro = (evalInstaller { device = "pine64-pinephonepro"; localSystem = "aarch64-linux"; }).outputs.default;
+    lenovo-krane = (evalInstaller { device = "lenovo-krane"; buildPlatform = "aarch64-linux"; }).outputs.default;
+    lenovo-wormdingler = (evalInstaller { device = "lenovo-wormdingler"; buildPlatform = "aarch64-linux"; }).outputs.default;
+    pine64-pinephone = (evalInstaller { device = "pine64-pinephone"; buildPlatform = "aarch64-linux"; }).outputs.default;
+    pine64-pinephonepro = (evalInstaller { device = "pine64-pinephonepro"; buildPlatform = "aarch64-linux"; }).outputs.default;
   };
 
   # Overlays build native, and cross, according to shouldEvalOn
@@ -269,10 +268,10 @@ rec {
 
   cross-compiled = {
     installer = {
-      lenovo-krane = (evalInstaller { device = "lenovo-krane"; localSystem = "x86_64-linux"; }).outputs.default;
-      lenovo-wormdingler = (evalInstaller { device = "lenovo-wormdingler"; localSystem = "x86_64-linux"; }).outputs.default;
-      pine64-pinephone = (evalInstaller { device = "pine64-pinephone"; localSystem = "x86_64-linux"; }).outputs.default;
-      pine64-pinephonepro = (evalInstaller { device = "pine64-pinephonepro"; localSystem = "aarch64-linux"; }).outputs.default;
+      lenovo-krane = (evalInstaller { device = "lenovo-krane"; buildPlatform = "x86_64-linux"; }).outputs.default;
+      lenovo-wormdingler = (evalInstaller { device = "lenovo-wormdingler"; buildPlatform = "x86_64-linux"; }).outputs.default;
+      pine64-pinephone = (evalInstaller { device = "pine64-pinephone"; buildPlatform = "x86_64-linux"; }).outputs.default;
+      pine64-pinephonepro = (evalInstaller { device = "pine64-pinephonepro"; buildPlatform = "aarch64-linux"; }).outputs.default;
     };
   };
 
