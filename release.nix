@@ -231,11 +231,6 @@ rec {
       aarch64-linux.toplevel = (evalExample { example = ./examples/phosh; system = "aarch64-linux"; }).outputs.toplevel;
       cross-x86-aarch64.toplevel = (evalExample { example = ./examples/phosh; system = "x86_64-linux"; targetSystem = "aarch64-linux"; }).outputs.toplevel;
     };
-    plasma-mobile = {
-      x86_64-linux.toplevel  = (evalExample { example = ./examples/plasma-mobile; system = "x86_64-linux"; }).outputs.toplevel;
-      aarch64-linux.toplevel = (evalExample { example = ./examples/plasma-mobile; system = "aarch64-linux"; }).outputs.toplevel;
-      cross-x86-aarch64.toplevel = (evalExample { example = ./examples/plasma-mobile; system = "x86_64-linux"; targetSystem = "aarch64-linux"; }).outputs.toplevel;
-    };
   };
 
   installer = {
@@ -291,7 +286,6 @@ rec {
         examples.hello.x86_64-linux.toplevel
         examples.hello.cross-x86-aarch64.toplevel
         examples.phosh.x86_64-linux.toplevel
-        examples.plasma-mobile.x86_64-linux.toplevel
 
         # Flashable zip binaries are universal for a platform.
         overlay.x86_64-linux.aarch64-linux-cross.mobile-nixos.android-flashable-zip-binaries
@@ -303,7 +297,6 @@ rec {
         # Example systems
         examples.hello.aarch64-linux.toplevel
         examples.phosh.aarch64-linux.toplevel
-        examples.plasma-mobile.aarch64-linux.toplevel
 
         installer.pine64-pinephone
 
