@@ -76,8 +76,24 @@ let
   inherit (pkgs) lib releaseTools;
   inherit (mobileReleaseTools.withPkgs pkgs)
     evalFor
-    evalWithConfiguration
     specialConfig
+  ;
+
+  # Add `allowAliases = false` to `evalWithConfiguration` for the release evaluations.
+  evalWithConfiguration = 
+    config: device:
+    (mobileReleaseTools.withPkgs pkgs).evalWithConfiguration
+    {
+      imports = [
+        {
+          nixpkgs.config = {
+            allowAliases = false;
+          };
+        }
+        config
+      ];
+    }
+    device
   ;
 
   # Systems we should eval for, per host system.
