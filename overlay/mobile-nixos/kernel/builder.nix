@@ -26,7 +26,7 @@
 
 , perl
 , bc
-, nettools
+, net-tools
 , openssl
 , rsync
 , gmp
@@ -216,7 +216,7 @@ stdenv.mkDerivation (inputArgs // {
   updateConfigFromStructuredConfig = !__mobile-nixos-useStrictKernelConfig;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl bc nettools openssl rsync gmp libmpc mpfr ]
+  nativeBuildInputs = [ perl bc net-tools openssl rsync gmp libmpc mpfr ]
     ++ optional (platform.linux-kernel.target == "uImage") buildPackages.ubootTools
     ++ optional (lib.versionAtLeast version "4.14" && lib.versionOlder version "5.8") libelf
     ++ optional (lib.versionAtLeast version "4.15") util-linux
