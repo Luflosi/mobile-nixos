@@ -15,7 +15,7 @@ let
   } ''
     (PS4=" $ "; set -x
     mkdir -vp "$out/xkb"
-    cp -vr -t "$out/xkb/" ${pkgs.xkeyboardconfig}/share/X11/xkb/*
+    cp -vr -t "$out/xkb/" ${pkgs.xkeyboard-config}/share/X11/xkb/*
     cp -vr ${pkgs.libX11.out}/share/X11/locale $out/locale
     )
 
