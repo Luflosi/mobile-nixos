@@ -1,6 +1,7 @@
 {
   mobile-nixos
 , fetchFromGitLab
+, fetchpatch2
 , ...
 }:
 
@@ -17,6 +18,12 @@ mobile-nixos.kernel-builder {
 
   patches = [
     ./0001-dts-pinephone-pro-Setup-default-on-and-panic-LEDs.patch
+    (fetchpatch2 {
+      # Fix battery status not being visible, see https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/4080
+      name = "tcpm-allow-looking-for-role_sw-device-in-the-main-no.patch";
+      url = "https://lore.kernel.org/all/20251127-fix-ppp-power-v1-1-52cdd74c0ee6@collabora.com/raw";
+      hash = "sha256-okWjTHV9N6MToGwOkOqBO1Yz8qv6zvBVbyx1HnEEU9w=";
+    })
   ];
 
   postInstall = ''
