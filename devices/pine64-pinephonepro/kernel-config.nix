@@ -46,6 +46,12 @@
 
       # Vibrate motor
       INPUT_GPIO_VIBRA = yes;
+
+      # Camera
+      VIDEO_OV5640 = yes;
+
+      # Lens
+      VIDEO_DW9714 = yes;
     })
   ];
 }
