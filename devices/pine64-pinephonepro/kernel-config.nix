@@ -48,7 +48,7 @@
       INPUT_GPIO_VIBRA = yes;
 
       # Lens
-      # VIDEO_DW9714 = yes;
+      VIDEO_DW9714 = yes;
 
       # Camera
       VIDEO_OV5640 = yes;
