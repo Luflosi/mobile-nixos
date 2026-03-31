@@ -46,6 +46,28 @@
 
       # Vibrate motor
       INPUT_GPIO_VIBRA = yes;
+
+      # Lens
+      VIDEO_DW9714 = yes;
+
+      # Camera
+      VIDEO_OV5640 = yes;
+
+      # ???
+      LEDS_TRIGGER_CAMERA = yes;
+      VIDEO_DEV = yes;
+      V4L2_JPEG_HELPER = yes;
+      V4L2_H264 = yes;
+      V4L2_VP9 = yes;
+      V4L2_MEM2MEM_DEV = yes;
+      V4L2_FLASH_LED_CLASS = yes;
+      V4L2_FWNODE = yes;
+      V4L2_ASYNC = yes;
+      V4L2_CCI = yes;
+      V4L2_CCI_I2C = yes;
+      VIDEO_ROCKCHIP_RGA = yes;
+      VIDEO_ROCKCHIP_ISP1 = yes;
+      VIDEO_ROCKCHIP_VDEC = yes;
     })
   ];
 }
