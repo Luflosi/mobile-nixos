@@ -5,10 +5,15 @@ let
   ;
 in
 # NOTE: This overlay is scoped to only be used in practice by `mobile-nixos.stage-1`.
-#       See `overlay/overaly.nix` for how it's used.
+#       See `overlay/overlay.nix` for how it's used.
 {
   mobile-nixos = super.mobile-nixos // {
     stage-1 = {
+      # Expose the overlaid packages for development purposes.
+      inherit (final)
+        libinput
+        libxkbcommon
+      ;
       # Inherits the script-loader now customized with the slimmed deps.
       inherit (final.mobile-nixos) script-loader;
       boot-recovery-menu = callPackage ../recovery-menu {};

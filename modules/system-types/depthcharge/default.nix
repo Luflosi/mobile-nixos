@@ -16,7 +16,7 @@ let
   inherit (config.mobile.system.depthcharge.kpart) dtbs;
   deviceName = config.mobile.device.name;
   kernel = stage-0.mobile.boot.stage-1.kernel.package;
-  kernel_file = "${kernel}/${if kernel ? file then kernel.file else pkgs.stdenv.hostPlatform.linux-kernel.target}";
+  kernel_file = "${kernel}/${if kernel ? file then kernel.file else kernel.target}";
 
   # Name used for some image file output.
   name = "${config.mobile.configurationName}-${deviceName}";

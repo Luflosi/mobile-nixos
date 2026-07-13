@@ -18,7 +18,7 @@ let
     inherit cmdline;
     inherit (config.mobile.outputs) initrd;
     name = "mobile-nixos_${device.name}_${bootimg.name}";
-    kernel = "${kernelPackage}/${kernelPackage.file}";
+    kernel = "${kernelPackage}/${if kernelPackage ? file then kernelPackage.file else kernelPackage.target}";
     inherit (config.mobile.system.android) appendDTB;
   };
 

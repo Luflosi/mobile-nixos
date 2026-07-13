@@ -26,6 +26,9 @@ libxkbcommon.overrideAttrs({ ... }: {
     # In stage-2, use the regular xkbcommon lib.
     "-Dxkb-config-root=/NEEDS/OVERRIDE/etc/X11/xkb"
     "-Dx-locale-root=/NEEDS/OVERRIDE/share/X11/locale"
+    # Explicitly set those values, since xkeyboard-config is not provided.
+    "-Dxkb-config-unversioned-extensions-path=/DISABLED/xkb-config-unversioned-extensions-path"
+    "-Dxkb-config-versioned-extensions-path=/DISABLED/xkb-config-versioned-extensions-path"
   ];
 
   outputs = [ "out" "dev" ];

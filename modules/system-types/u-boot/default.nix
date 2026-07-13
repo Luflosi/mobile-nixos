@@ -9,7 +9,7 @@ let
   cfg = config.mobile.quirks.u-boot;
   deviceName = config.mobile.device.name;
   kernel = stage-0.mobile.boot.stage-1.kernel.package;
-  kernel_file = "${kernel}/${if kernel ? file then kernel.file else pkgs.stdenv.hostPlatform.linux-kernel.target}";
+  kernel_file = "${kernel}/${if kernel ? file then kernel.file else kernel.target}";
   boot-partition = config.mobile.generatedFilesystems.boot.output;
 
   # Look-up table to translate from targetPlatform to U-Boot names.
