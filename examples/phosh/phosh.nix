@@ -12,7 +12,7 @@
     splash = lib.mkDefault true;
   };
 
-  services.xserver.desktopManager.phosh = {
+  services.desktopManager.phosh = {
     enable = true;
     group = "users";
   };
@@ -30,10 +30,10 @@
   hardware.sensor.iio.enable = true;
 
   assertions = [
-    { assertion = options.services.xserver.desktopManager.phosh.user.isDefined;
+    { assertion = options.services.desktopManager.phosh.user.isDefined;
     message = ''
-      `services.xserver.desktopManager.phosh.user` not set.
-        When importing the phosh configuration in your system, you need to set `services.xserver.desktopManager.phosh.user` to the username of the session user.
+      `services.desktopManager.phosh.user` not set.
+        When importing the phosh configuration in your system, you need to set `services.desktopManager.phosh.user` to the username of the session user.
     '';
     }
   ];

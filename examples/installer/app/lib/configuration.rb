@@ -254,7 +254,7 @@ EOF
     when :phosh
 <<EOF
 # Auto-login for phosh
-services.xserver.desktopManager.phosh = {
+services.desktopManager.phosh = {
   user = #{username.to_json};
 };
 EOF

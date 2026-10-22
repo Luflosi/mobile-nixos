@@ -22,7 +22,7 @@ in
       ];
     };
     
-    services.xserver.desktopManager.phosh = {
+    services.desktopManager.phosh = {
       user = defaultUserName;
     };
   };
